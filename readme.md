@@ -4,8 +4,8 @@ This python program allows you to search and check info on anime/manga and relat
 
 ---
 ### Requirements
-Python
-jikanpy module (Jikan API wrapper)
+- Python
+- jikanpy module (Jikan API wrapper)
     - use `pip install jikanpy` to install it
 
 ### Setup
