@@ -14,7 +14,7 @@ The program will automatically create `list.txt` in the same folder to store the
 
 The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image.
 
-The program by-default opens the images in `feh`. If you don't have that installed or want to use something else, open `anime.py` and replace `image_viewing_command` with the command of your image viewer, for example, if you're using gwenview, you'll write `gwenview temp.jpg`.
+The program by-default opens the images in `feh`. If you don't have that installed or want to use something else, open `anime.py` and replace `image_viewing_command` with the command of your image viewer. For example, if you're using gwenview, you'll write `gwenview temp.jpg`.
 
 ### Usage 
 - cd into the directory where `anime.py` is located.
