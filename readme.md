@@ -9,21 +9,21 @@ This python program allows you to search and check info on anime/manga and relat
     - use `pip install jikanpy` to install it
 
 ### Setup
-This program only has one file, `anime.py`, store it wherever you like.
+This program only has one file, `otaku.py`, store it wherever you like.
 The program will automatically create `list.txt` in the same folder to store the names of anime/manga you tell.
 
 The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image.
 
-The program by-default opens the images in `feh`. If you don't have that installed or want to use something else, open `anime.py` and replace `image_viewing_command` with the command of your image viewer. For example, if you're using gwenview, you'll write `gwenview temp.jpg`.
+The program by-default opens the images in `feh`. If you don't have that installed or want to use something else, open `otaku.py` and replace `image_viewing_command` with the command of your image viewer. For example, if you're using gwenview, you'll write `gwenview temp.jpg`.
 
 ### Usage 
-- cd into the directory where `anime.py` is located.
-- run the program using `python anime.py` (or `python3 anime.py` if you have python 2.7 installed as well)
+- cd into the directory where `otaku.py` is located.
+- run the program using `python otaku.py` (or `python3 otaku.py` if you have python 2.7 installed as well)
 
 **Tip**-> As you have noticed, the process to launch this program is a bit tedious. what i would recommend is setting up an alias, here's an example:
 ```bash
 # tested on bash and fish
-alias anime='cd /path/to/file ; python anime.py ; cd'
+alias anime='cd /path/to/file ; python otaku.py ; cd'
 ```
 
 ### Features
