@@ -237,6 +237,7 @@ while True:
     elif choice == 'clear': # Clear the Screen
         clear()
     elif choice in ['q', 'exit']:
+        system("rm temp.jpg")
         exit()
     else:
         print('Invalid Command...')
