@@ -4,11 +4,17 @@
 from jikanpy import Jikan # Jikan API wrapper
 from requests import get # To download images
 from os import system # To clear screen
+import platform
 
 jikan = Jikan() # Initializing the Jikan instance
 
 # Replace this with your command
-image_viewing_command = 'feh temp.jpg'
+if platform.system() == "Darwin":
+    image_viewing_command = 'open temp.jpg'
+elif platform.system() == "Linux":
+    image_viewing_command = 'xdg-open temp.jpg'
+else:
+    image_viewing_command = 'feh temp.jpg'
 
 # FUNCTIONS
 # Search for anime/manga/character
@@ -148,7 +154,7 @@ def check_info(search_type, query):
                 for chunk in response.iter_content(chunk_size=1024):
                     file.write(chunk)
             system(image_viewing_command) # Display Image
-            system('rm temp.jpg')
+            #system('rm temp.jpg') #this command will remove the image too fast for macOS to display it
             break
         elif choice == 'n':
             break
