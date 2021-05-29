@@ -156,7 +156,6 @@ def check_info(search_type, query):
                 for chunk in response.iter_content(chunk_size=1024):
                     file.write(chunk)
             system(image_viewing_command) # Display Image
-            #system('rm temp.jpg') #this command will remove the image too fast for macOS to display it
             break
         elif choice == 'n':
             break
