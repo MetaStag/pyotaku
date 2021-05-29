@@ -13,8 +13,10 @@ if platform.system() == "Darwin":
     image_viewing_command = 'open temp.jpg'
 elif platform.system() == "Linux":
     image_viewing_command = 'xdg-open temp.jpg'
+elif platform.system() == "Windows":
+    image_viewing_command = 'start temp.jpg'
 else:
-    image_viewing_command = 'feh temp.jpg'
+    image_viewing_command = ''
 
 # FUNCTIONS
 # Search for anime/manga/character
