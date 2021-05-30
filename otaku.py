@@ -242,7 +242,13 @@ while True:
     elif choice == 'clear': # Clear the Screen
         clear()
     elif choice in ['q', 'exit']:
-        system("rm temp.jpg")
+        if platform.system == "Windows":
+            try: #added the try bc I dont know how to only delete file if it exists in Windows
+                system("del temp.jpg")
+            except:
+                pass #nothing to do, file doesn't exist
+        else:
+            system("rm -f temp.jpg")
         exit()
     else:
         print('Invalid Command...')
