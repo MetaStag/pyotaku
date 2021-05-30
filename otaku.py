@@ -185,68 +185,70 @@ def clear():
 
 
 # MAIN LOOP
-clear()
-while True:
 
-    choice = input('> ')
-    choice = choice.lower() # Managing case-sensitivity
+if __name__ == "__main__":
+    clear()
+    while True:
 
-    if choice == 's': # Search
-        search_type, search_results = search()
+        choice = input('> ')
+        choice = choice.lower() # Managing case-sensitivity
 
-        if not search_type: # If search_type was invalid or search returned no results
-            continue
-        show_search_results(search_type, search_results)
+        if choice == 's': # Search
+            search_type, search_results = search()
 
-    elif choice == 'c': # Check info
-        search_type, search_results = search()
+            if not search_type: # If search_type was invalid or search returned no results
+                continue
+            show_search_results(search_type, search_results)
 
-        if not search_type:
-            continue
-        check_info(search_type, search_results['results'][0])
+        elif choice == 'c': # Check info
+            search_type, search_results = search()
 
-    elif choice == 'a': # Add a title to list
-        title = input('Enter name of title: ')
-        with open('list.txt', 'a') as f:
-            f.write(f'{title}\n')
-        print('Sucessfully added title to list!')
+            if not search_type:
+                continue
+            check_info(search_type, search_results['results'][0])
 
-    elif choice == 'd': # Delete a title from list
-        title = input('Enter name of title: ')
-        flag = False
-        with open('list.txt', 'r+') as f:
-            titles = f.readlines()
-            f.seek(0)
+        elif choice == 'a': # Add a title to list
+            title = input('Enter name of title: ')
+            with open('list.txt', 'a') as f:
+                f.write(f'{title}\n')
+            print('Sucessfully added title to list!')
+
+        elif choice == 'd': # Delete a title from list
+            title = input('Enter name of title: ')
+            flag = False
+            with open('list.txt', 'r+') as f:
+                titles = f.readlines()
+                f.seek(0)
+                for i in titles:
+                    if i == f'{title}\n':
+                        flag = True
+                    else:
+                        f.write(i)
+                f.truncate()
+
+            if flag:
+                print('Sucessfully deleted title from list!')
+            else:
+                print('This title does not exist...')
+
+        elif choice == 'l': # List all titles
+            with open('list.txt', 'r') as f:
+                titles = f.readlines()
+
+            if titles == []:
+                print('The list is currently empty...')
+                continue
             for i in titles:
-                if i == f'{title}\n':
-                    flag = True
-                else:
-                    f.write(i)
-            f.truncate()
+                print(f'{titles.index(i)+1}: {i[:-1]}')
 
-        if flag:
-            print('Sucessfully deleted title from list!')
+        elif choice == 'clear': # Clear the Screen
+            clear()
+        elif choice in ['q', 'exit']:
+            if platform.system == "Windows":
+                if path.exists("temp.jpg"):
+                    system("del temp.jpg")
+            else:
+                system("rm -f temp.jpg")
+            exit()
         else:
-            print('This title does not exist...')
-
-    elif choice == 'l': # List all titles
-        with open('list.txt', 'r') as f:
-            titles = f.readlines()
-
-        if titles == []:
-            print('The list is currently empty...')
-            continue
-        for i in titles:
-            print(f'{titles.index(i)+1}: {i[:-1]}')
-
-    elif choice == 'clear': # Clear the Screen
-        clear()
-    elif choice in ['q', 'exit']:
-        if platform.system == "Windows":
-            if path.exists("temp.jpg"):
-                system("del temp.jpg")
-        else:
-            system("rm -f temp.jpg")
-        exit()
-    else:
-        print('Invalid Command...')
+            print('Invalid Command...')
