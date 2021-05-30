@@ -3,12 +3,20 @@
 # MODULES
 from jikanpy import Jikan # Jikan API wrapper
 from requests import get # To download images
-from os import system # To clear screen
+from os import system, path # To clear screen and check for temp.jpg
+import platform
 
 jikan = Jikan() # Initializing the Jikan instance
 
 # Replace this with your command
-image_viewing_command = 'feh temp.jpg'
+if platform.system() == "Darwin":
+    image_viewing_command = 'open temp.jpg'
+elif platform.system() == "Linux":
+    image_viewing_command = 'xdg-open temp.jpg'
+elif platform.system() == "Windows":
+    image_viewing_command = 'start temp.jpg'
+else:
+    image_viewing_command = ''
 
 # FUNCTIONS
 # Search for anime/manga/character
@@ -124,8 +132,14 @@ def check_info(search_type, query):
     elif search_type == 'character':
         character = jikan.character(query['mal_id'])
         print(f'Name             | {character["name"]}')
-        print(f'Animeography     | {character["animeography"][0]["name"]}')
-        print(f'Mangaography     | {character["mangaography"][0]["name"]}')
+        if len(character["animeography"]) > 0:
+            print(f'Animeography     | {character["animeography"][0]["name"]}')
+        else:
+            print("Animeography     | None")
+        if len(character["mangaography"]) > 0:
+            print(f'Mangaography     | {character["mangaography"][0]["name"]}')
+        else:
+            print("Mangaography     | None")
         print('---------------------------------------------')
         print(f'Nicknames        | {character["nicknames"]}')
         print(f'Member Favorites | {character["member_favorites"]}')
@@ -148,7 +162,6 @@ def check_info(search_type, query):
                 for chunk in response.iter_content(chunk_size=1024):
                     file.write(chunk)
             system(image_viewing_command) # Display Image
-            system('rm temp.jpg')
             break
         elif choice == 'n':
             break
@@ -229,6 +242,11 @@ while True:
     elif choice == 'clear': # Clear the Screen
         clear()
     elif choice in ['q', 'exit']:
+        if platform.system == "Windows":
+            if path.exists("temp.jpg"):
+                system("del temp.jpg")
+        else:
+            system("rm -f temp.jpg")
         exit()
     else:
         print('Invalid Command...')
