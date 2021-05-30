@@ -12,9 +12,7 @@ This python program allows you to search and check info on anime/manga and relat
 This program only has one file, `otaku.py`, store it wherever you like.
 The program will automatically create `list.txt` in the same folder to store the names of anime/manga you tell.
 
-The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image.
-
-The program by-default opens the images in `feh`. If you don't have that installed or want to use something else, open `otaku.py` and replace `image_viewing_command` with the command of your image viewer. For example, if you're using gwenview, you'll write `gwenview temp.jpg`.
+The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image. The program does try to detect which image viewer to use automatically based on the os (credits to @MasterMax13124), but if you want to write a custom command, feel free to do so, in `image_viewing_command`.
 
 ### Usage 
 - cd into the directory where `otaku.py` is located.
@@ -22,7 +20,6 @@ The program by-default opens the images in `feh`. If you don't have that install
 
 **Tip**-> As you have noticed, the process to launch this program is a bit tedious. what i would recommend is setting up an alias, here's an example:
 ```bash
-# tested on bash and fish
 alias anime='cd /path/to/file ; python otaku.py ; cd'
 ```
 
