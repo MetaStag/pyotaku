@@ -132,8 +132,14 @@ def check_info(search_type, query):
     elif search_type == 'character':
         character = jikan.character(query['mal_id'])
         print(f'Name             | {character["name"]}')
-        print(f'Animeography     | {character["animeography"][0]["name"]}')
-        print(f'Mangaography     | {character["mangaography"][0]["name"]}')
+        if len(character["animeography"]) > 0:
+            print(f'Animeography     | {character["animeography"][0]["name"]}')
+        else:
+            print("Animeography     | None")
+        if len(character["mangaography"]) > 0:
+            print(f'Mangaography     | {character["mangaography"][0]["name"]}')
+        else:
+            print("Mangaography     | None")
         print('---------------------------------------------')
         print(f'Nicknames        | {character["nicknames"]}')
         print(f'Member Favorites | {character["member_favorites"]}')
