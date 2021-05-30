@@ -12,7 +12,7 @@ This python program allows you to search and check info on anime/manga and relat
 This program only has one file, `otaku.py`, store it wherever you like.
 The program will automatically create `list.txt` in the same folder to store the names of anime/manga you tell.
 
-The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image. The program does try to detect which image viewer to use automatically based on the os (credits to @MasterMax13124), but if you want to write a custom command, feel free to do so, in `image_viewing_command`.
+The program will also create a temporary file, `temp.jpg` in the same folder whenever you view an image. The program does try to detect which image viewer to use automatically based on the os (credits to [@MasterMax13124](https://github.com/MasterMax13124)), but if you want to write a custom command, feel free to do so, in `image_viewing_command`.
 
 ### Usage 
 - cd into the directory where `otaku.py` is located.
