@@ -3,7 +3,7 @@
 # MODULES
 from jikanpy import Jikan # Jikan API wrapper
 from requests import get # To download images
-from os import system # To clear screen
+from os import system, path # To clear screen and check for temp.jpg
 import platform
 
 jikan = Jikan() # Initializing the Jikan instance
@@ -243,10 +243,8 @@ while True:
         clear()
     elif choice in ['q', 'exit']:
         if platform.system == "Windows":
-            try: #added the try bc I dont know how to only delete file if it exists in Windows
+            if path.exists("temp.jpg"):
                 system("del temp.jpg")
-            except:
-                pass #nothing to do, file doesn't exist
         else:
             system("rm -f temp.jpg")
         exit()
