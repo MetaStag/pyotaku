@@ -146,33 +146,28 @@ def check_info(search_type, query):
             print(f'Mangaography     | {character["mangaography"][0]["name"]}')
         else:
             print("Mangaography     | None")
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Nicknames        | {character["nicknames"]}')
+        print_seperator(45)
         print(f'Member Favorites | {character["member_favorites"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'About            | {character["about"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Url              | {character["url"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
 
     
     # Corresponding Image
-    while True:
-        choice = input('Do you want to open the corresponding image(Y/N): ')
-        choice = choice.lower()
+    choice = input('Do you want to open the corresponding image(y/N): ')
+    choice = choice.lower()
 
-        if choice == 'y':
-            img_url = query["image_url"]
-            response = get(query["image_url"], stream=True) # Download Image
-            with open('temp.jpg', 'wb') as file: # Save to external file temporarily
-                for chunk in response.iter_content(chunk_size=1024):
-                    file.write(chunk)
-            system(image_viewing_command) # Display Image
-            break
-        elif choice == 'n':
-            break
-        else:
-            print('Write either Y or N...')
+    if choice in ['y', 'yes']:
+        img_url = query["image_url"]
+        response = get(query["image_url"], stream=True) # Download Image
+        with open('temp.jpg', 'wb') as file: # Save to external file temporarily
+            for chunk in response.iter_content(chunk_size=1024):
+                file.write(chunk)
+        system(image_viewing_command) # Display Image
 
 # Clear the screen
 def clear():
@@ -181,7 +176,7 @@ def clear():
     print('*' * 7)
     print('COMMANDS')
     print('s - Search')
-    print('c - Check  info')
+    print('c - Check info')
     print('a - Add a title to list')
     print('d - Delete a title from list')
     print('l - List saved titles')
@@ -189,10 +184,7 @@ def clear():
     print('q - Exit')
     print('*' * 7)
 
-def print_seperator(length=None):
-    if length == None:
-        print_seperator(63)
-        return
+def print_seperator(length=63):
     print("_" * length)
 
 
@@ -200,9 +192,7 @@ def print_seperator(length=None):
 if __name__ == "__main__":
     clear()
     while True:
-
-        choice = input('> ')
-        choice = choice.lower() # Managing case-sensitivity
+        choice = input('> ').lower()
 
         if choice == 's': # Search
             search_type, search_results = search()
@@ -243,8 +233,11 @@ if __name__ == "__main__":
                 print('This title does not exist...')
 
         elif choice == 'l': # List all titles
-            with open('list.txt', 'r') as f:
-                titles = f.readlines()
+            try:
+                with open('list.txt', 'r') as f:
+                    titles = f.readlines()
+            except:
+                print("The list file doesn't exist! Sorry!")
 
             if titles == []:
                 print('The list is currently empty...')
@@ -254,6 +247,7 @@ if __name__ == "__main__":
 
         elif choice == 'clear': # Clear the Screen
             clear()
+
         elif choice in ['q', 'exit']:
             if platform.system == "Windows":
                 if path.exists("temp.jpg"):
@@ -261,5 +255,6 @@ if __name__ == "__main__":
             else:
                 system("rm -f temp.jpg")
             exit()
+
         else:
             print('Invalid Command...')
