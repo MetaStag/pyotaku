@@ -4,11 +4,10 @@
 from jikanpy import Jikan # Jikan API wrapper
 from requests import get # To download images
 from os import system, path # To clear screen and check for temp.jpg
-import platform
+import platform # To determine operating system
 
 jikan = Jikan() # Initializing the Jikan instance
 
-# Replace this with your command
 if platform.system() == "Darwin":
     image_viewing_command = 'open temp.jpg'
 elif platform.system() == "Linux":
@@ -47,13 +46,11 @@ def search():
 
 # Show search results in a somewhat clean way
 def show_search_results(search_type, search_results):
+    first = 'title'
+    second = 'score'
     if search_type == 'anime':
-        first = 'title'
-        second = 'score'
         third = 'episodes'
     elif search_type == 'manga':
-        first = 'title'
-        second = 'score'
         third = 'chapters'
     elif search_type == 'character':
         first = 'name'
@@ -62,7 +59,7 @@ def show_search_results(search_type, search_results):
 
     
     print(f'NO.|    {first.upper()}    |    {second.upper()}    |    {third.upper()}    |    TYPE    |')
-    print('_______________________________________________________________')
+    print_seperator()
 
     num = 1
     if search_type == 'character': # Seperate loop for Character because it has different variables (anime/manga)
@@ -72,11 +69,12 @@ def show_search_results(search_type, search_results):
             else:
                 content_type = 'manga'
 
-            print(f'|{num}| {i[first]} | {i[second]} | {i[content_type][0][first]} | {i[content_type][0]["type"]}')
+            #below line prints a number, the character name, nicknames, the anime/manga name, whether or not its an anime or manga
+            print(f'|{num}| {i[first]} | {i[second]} | {i[content_type][titleindex][first]} | {i[content_type][0]["type"]}')
             num += 1
             if num == 11: # Limit of 10 results
                 break
-        print('_______________________________________________________________')
+        print_seperator()
         return
 
     for i in search_results["results"]:
@@ -84,7 +82,7 @@ def show_search_results(search_type, search_results):
         num += 1
         if num == 11: # Limit of 10 results
             break
-    print('_______________________________________________________________')
+    print_seperator()
 
 # Check info on a specific anime/manga/character
 def check_info(search_type, query):
@@ -96,38 +94,38 @@ def check_info(search_type, query):
         print(f'Title(en)  |  {anime["title_english"]}')
         print(f'Type       | {anime["type"]}')
         print(f'Episodes   | {anime["episodes"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Rank       | {anime["rank"]}')
         print(f'Popularity | {anime["popularity"]}')
         print(f'Score      | {anime["score"]}')
         print(f'Members    | {anime["members"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Airing     | {anime["airing"]}')
         print(f'Aired      | {anime["aired"]["string"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Synopsis   | {anime["synopsis"][:-25]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Url        | {anime["url"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
 
     elif search_type == 'manga':
         manga = jikan.manga(query['mal_id'])
         print(f'Title      | {manga["title"]}')
         print(f'Volumes    | {manga["volumes"]}')
         print(f'Chapter    | {manga["chapters"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Rank       | {manga["rank"]}')
         print(f'Popularity | {manga["popularity"]}')
         print(f'Score      | {manga["score"]}')
         print(f'Members    | {manga["members"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Published  | {manga["published"]["string"]}')
         print(f'Status     | {manga["status"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Sypnosis   | {manga["synopsis"][:-25]}')
-        print('---------------------------------------------')
+        print_seperator(45)
         print(f'Url        | {manga["url"]}')
-        print('---------------------------------------------')
+        print_seperator(45)
 
     elif search_type == 'character':
         character = jikan.character(query['mal_id'])
@@ -172,7 +170,7 @@ def check_info(search_type, query):
 def clear():
     system('clear')
     print('pyotaku')
-    print('********')
+    print('*' * 7)
     print('COMMANDS')
     print('s - Search')
     print('c - Check  info')
@@ -180,12 +178,17 @@ def clear():
     print('d - Delete a title from list')
     print('l - List saved titles')
     print('clear - Clear the Screen')
-    print('q/exit - Exit')
-    print('********')
+    print('q - Exit')
+    print('*' * 7)
+
+def print_seperator(length=None):
+    if length == None:
+        print_seperator(63)
+        return
+    print("_" * length)
 
 
 # MAIN LOOP
-
 if __name__ == "__main__":
     clear()
     while True:
