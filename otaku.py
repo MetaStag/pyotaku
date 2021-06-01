@@ -69,7 +69,15 @@ def show_search_results(search_type, search_results):
             else:
                 content_type = 'manga'
 
-            #below line prints a number, the character name, nicknames, the anime/manga name, whether or not its an anime or manga
+            # following block determines anime or manga with lowest mal_id
+            # to show the oldest anime that a character appeared in
+            animelist = []
+            for number in i[content_type]:
+                pass
+                animelist.append(number["mal_id"])
+
+            titleindex = animelist.index(min(sorted(animelist)))
+            # below line prints a number, the character name, nicknames, the anime/manga name, whether or not its an anime or manga
             print(f'|{num}| {i[first]} | {i[second]} | {i[content_type][titleindex][first]} | {i[content_type][0]["type"]}')
             num += 1
             if num == 11: # Limit of 10 results
