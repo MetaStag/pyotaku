@@ -6,14 +6,19 @@ from requests import get # To download images
 from os import system, path # To clear screen and check for temp.jpg
 import platform # To determine operating system
 
-jikan = Jikan() # Initializing the Jikan instance
 
+# VARIABLES
+jikan = Jikan() # Initializing the Jikan instance
+clear_command = 'clear'
+
+# Replace this with your command to open images
 if platform.system() == "Darwin":
     image_viewing_command = 'open temp.jpg'
 elif platform.system() == "Linux":
     image_viewing_command = 'xdg-open temp.jpg'
 elif platform.system() == "Windows":
     image_viewing_command = 'start temp.jpg'
+    clear_command = 'cls'
 else:
     image_viewing_command = 'echo Sorry, we could not determine your platform, try setting an image viewing command manually'
 
@@ -174,7 +179,7 @@ def check_info(search_type, query):
 
 # Clear the screen
 def clear():
-    system('clear')
+    system(clear_command)
     print('pyotaku')
     print('*' * 7)
     print('COMMANDS')
