@@ -15,7 +15,10 @@ elif platform.system() == "Linux":
 elif platform.system() == "Windows":
     image_viewing_command = 'start temp.jpg'
 else:
-    image_viewing_command = ''
+    image_viewing_command = 'echo Sorry, we could not determine your platform, try setting an image viewing command manually'
+
+# overwrite the image viewing command by changing and uncommenting the line below:
+#image_viewing_command = "yourcommand temp.jpg"
 
 # FUNCTIONS
 # Search for anime/manga/character
