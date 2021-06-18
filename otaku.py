@@ -5,11 +5,13 @@ from jikanpy import Jikan # Jikan API wrapper
 from requests import get # To download images
 from os import system, path # To clear screen and check for temp.jpg
 import platform # To determine operating system
+import textwrap
 
 
 # VARIABLES
 jikan = Jikan() # Initializing the Jikan instance
 clear_command = 'clear'
+wrapper = textwrap.TextWrapper(width=70)
 
 # Replace this with your command to open images
 if platform.system() == "Darwin":
@@ -105,9 +107,10 @@ def check_info(search_type, query):
 
     # Print info
     if search_type == 'anime':
+        system(clear_command)
         anime = jikan.anime(query['mal_id'])
         print(f'Title      | {anime["title"]}')
-        print(f'Title(en)  |  {anime["title_english"]}')
+        print(f'Title(en)  | {anime["title_english"]}')
         print(f'Type       | {anime["type"]}')
         print(f'Episodes   | {anime["episodes"]}')
         print_seperator(45)
@@ -119,12 +122,15 @@ def check_info(search_type, query):
         print(f'Airing     | {anime["airing"]}')
         print(f'Aired      | {anime["aired"]["string"]}')
         print_seperator(45)
-        print(f'Synopsis   | {anime["synopsis"][:-25]}')
+        word_list = wrapper.wrap(text=f'{anime["synopsis"]}')
+        for w in word_list:
+            print(w)
         print_seperator(45)
         print(f'Url        | {anime["url"]}')
         print_seperator(45)
 
     elif search_type == 'manga':
+        system(clear_command)
         manga = jikan.manga(query['mal_id'])
         print(f'Title      | {manga["title"]}')
         print(f'Volumes    | {manga["volumes"]}')
@@ -138,7 +144,9 @@ def check_info(search_type, query):
         print(f'Published  | {manga["published"]["string"]}')
         print(f'Status     | {manga["status"]}')
         print_seperator(45)
-        print(f'Sypnosis   | {manga["synopsis"][:-25]}')
+        word_list = wrapper.wrap(text=f'{manga["synopsis"]}')
+        for w in word_list:
+            print(w)
         print_seperator(45)
         print(f'Url        | {manga["url"]}')
         print_seperator(45)
@@ -159,18 +167,18 @@ def check_info(search_type, query):
         print_seperator(45)
         print(f'Member Favorites | {character["member_favorites"]}')
         print_seperator(45)
-        print(f'About            | {character["about"]}')
+        word_list = wrapper.wrap(text=f'{character["about"]}'.replace("\\n", ""))
+        for w in word_list:
+            print(w)
         print_seperator(45)
         print(f'Url              | {character["url"]}')
         print_seperator(45)
 
     
-    # Corresponding Image
     choice = input('Do you want to open the corresponding image(y/N): ')
     choice = choice.lower()
 
     if choice in ['y', 'yes']:
-        img_url = query["image_url"]
         response = get(query["image_url"], stream=True) # Download Image
         with open('temp.jpg', 'wb') as file: # Save to external file temporarily
             for chunk in response.iter_content(chunk_size=1024):
