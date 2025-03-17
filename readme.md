@@ -1,3 +1,5 @@
+**[As of March 2025, this project is officially archived, as it has been unmaintained for years, there's no guarantee it will work anymore, proceed at your own risk]**
+
 # pyotaku
 
 This python program allows you to search and check info on anime/manga and related characters... all from the terminal!
